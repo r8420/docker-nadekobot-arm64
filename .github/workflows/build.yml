@@ -24,7 +24,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # Pull the default from the Dockerfile (6.1.7 until Renovate bumps it)
+      # Extract Nadeko version from Dockerfile (default in ARG)
       - name: Extract Nadeko version
         id: vars
         run: |
@@ -38,4 +38,6 @@ jobs:
           push: true
           platforms: linux/arm64
           # renovate: datasource=github-releases depName=nadeko-bot/nadekobot versioning=semver
-          tags: ghcr.io/${{ github.repository_owner }}/docker-nadekobot-arm64:v${{ steps.vars.outputs.NADEKO_VERSION }}
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/docker-nadekobot-arm64:v${{ steps.vars.outputs.NADEKO_VERSION }}
+            ghcr.io/${{ github.repository_owner }}/docker-nadekobot-arm64:latest
