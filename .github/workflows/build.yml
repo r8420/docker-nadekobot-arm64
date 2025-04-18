@@ -24,11 +24,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # Extract the version Renovate updated in Dockerfile
+      # Pull the default from the Dockerfile (6.1.7 until Renovate bumps it)
       - name: Extract Nadeko version
         id: vars
         run: |
-          echo "NADEKO_VERSION=$(grep -oP 'ARG NADEKO_VERSION=\\K[0-9.]+' Dockerfile)" >> "$GITHUB_OUTPUT"
+          ver=$(grep -oP 'ARG NADEKO_VERSION=\K[0-9.]+' Dockerfile)
+          echo "NADEKO_VERSION=${ver:-6.1.7}" >> "$GITHUB_OUTPUT"
 
       - name: Build & push ARM64 image
         uses: docker/build-push-action@v5
@@ -36,7 +37,5 @@ jobs:
           context: .
           push: true
           platforms: linux/arm64
-          build-args: |
-            NADEKO_VERSION=${{ steps.vars.outputs.NADEKO_VERSION }}
           # renovate: datasource=github-releases depName=nadeko-bot/nadekobot versioning=semver
           tags: ghcr.io/${{ github.repository_owner }}/docker-nadekobot-arm64:v${{ steps.vars.outputs.NADEKO_VERSION }}
