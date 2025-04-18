@@ -96,6 +96,6 @@ PRs welcome! Keep the wrapper minimal—package bumps and fixes go in the Docker
 This repo includes a GitHub Actions workflow that
 
 1. Builds the image for `linux/arm64`  
-2. Pushes it to GHCR as `ghcr.io/<owner>/docker-nadekobot-arm64:v6`
+2. Pushes it to GHCR as `ghcr.io/r8420/docker-nadekobot-arm64:v6`
 
 See [`.github/workflows/build.yml`](.github/workflows/build.yml).
