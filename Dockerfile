@@ -13,11 +13,12 @@
 # BUILD  STAGE #
 ################
 FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG NADEKO_REF=v6                       # tag/branch/commit to build
+# renovate: datasource=github-releases depName=nadeko-bot/nadekobot versioning=semver
+ARG NADEKO_VERSION=6.1.7                # tag/branch/commit to build
 WORKDIR /src
 
 # 1. clone only the requested ref
-RUN git clone --depth 1 --branch ${NADEKO_REF} \
+RUN git clone --depth 1 --branch ${NADEKO_VERSION} \
       https://github.com/nadeko-bot/nadekobot.git /src
 
 # 2. restore & publish self‑contained

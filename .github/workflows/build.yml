@@ -24,10 +24,19 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # Get the version Renovate wrote into the Dockerfile
+      - name: Extract Nadeko version
+        id: vars
+        run: |
+          echo "NADEKO_VERSION=$(grep -oP 'ARG NADEKO_VERSION=\\K[0-9.]+' my_Dockerfile.txt)" >> "$GITHUB_OUTPUT"
+
       - name: Build & push ARM64 image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
           platforms: linux/arm64
-          tags: ghcr.io/${{ github.repository_owner }}/docker-nadekobot-arm64:v6
+          build-args: |
+            NADEKO_VERSION=${{ steps.vars.outputs.NADEKO_VERSION }}
+          # renovate: datasource=github-releases depName=nadeko-bot/nadekobot versioning=semver
+          tags: ghcr.io/${{ github.repository_owner }}/docker-nadekobot-arm64:v${{ steps.vars.outputs.NADEKO_VERSION }}

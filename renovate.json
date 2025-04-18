@@ -1,6 +1,26 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
+    "config:recommended",
+    "helpers:pinGitHubActionDigests",
+    "docker:pinDigests"
+  ],
+  "rebaseWhen": "conflicted",
+  "automerge": true,
+  "regexManagers": [
+    {
+      "description": "Update *_VERSION variables in Dockerfiles",
+      "fileMatch": ["^my_Dockerfile\\.txt$"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>[a-z-]+?) depName=(?<depName>[^\\s]+?)(?: (lookupName|packageName)=(?<packageName>[^\\s]+?))?(?: versioning=(?<versioning>[a-z-0-9]+?))?\\s(?:ENV|ARG) .+?_VERSION=\"?(?<currentValue>.+?)\"?\\s"
+      ]
+    },
+    {
+      "description": "Update Nadeko version in the workflow tag",
+      "fileMatch": ["^my_build\\.yml$"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>[a-z-]+?) depName=(?<depName>[^\\s]+?)(?: versioning=(?<versioning>[a-z-0-9]+?))?\\s+tags:.*?:.+?/docker-nadekobot-arm64:v(?<currentValue>[0-9.]+)"
+      ]
+    }
   ]
 }
