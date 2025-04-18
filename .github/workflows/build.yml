@@ -24,11 +24,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # Get the version Renovate wrote into the Dockerfile
+      # Extract the version Renovate updated in Dockerfile
       - name: Extract Nadeko version
         id: vars
         run: |
-          echo "NADEKO_VERSION=$(grep -oP 'ARG NADEKO_VERSION=\\K[0-9.]+' my_Dockerfile.txt)" >> "$GITHUB_OUTPUT"
+          echo "NADEKO_VERSION=$(grep -oP 'ARG NADEKO_VERSION=\\K[0-9.]+' Dockerfile)" >> "$GITHUB_OUTPUT"
 
       - name: Build & push ARM64 image
         uses: docker/build-push-action@v5
