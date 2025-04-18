@@ -1,0 +1,10 @@
+# Ignore everything by default
+*
+
+# keep the files needed to build image
+!Dockerfile
+!docker-entrypoint.sh
+!.dockerignore
+!.github/**
+!README.md
+!LICENSE
