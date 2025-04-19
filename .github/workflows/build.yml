@@ -41,3 +41,4 @@ jobs:
           tags: |
             ghcr.io/${{ github.repository_owner }}/docker-nadekobot-arm64:v${{ steps.vars.outputs.NADEKO_VERSION }}
             ghcr.io/${{ github.repository_owner }}/docker-nadekobot-arm64:latest
+            ghcr.io/${{ github.repository_owner }}/docker-nadekobot-arm64:v6
