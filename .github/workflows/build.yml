@@ -40,5 +40,15 @@ jobs:
           # renovate: datasource=github-releases depName=nadeko-bot/nadekobot versioning=semver
           tags: |
             ghcr.io/${{ github.repository_owner }}/docker-nadekobot-arm64:v${{ steps.vars.outputs.NADEKO_VERSION }}
-            ghcr.io/${{ github.repository_owner }}/docker-nadekobot-arm64:latest
             ghcr.io/${{ github.repository_owner }}/docker-nadekobot-arm64:v6
+            ghcr.io/${{ github.repository_owner }}/docker-nadekobot-arm64:latest
+
+      # ── Cleanup old untagged container versions in GHCR ───────────────────────────
+      - name: Clean up untagged package versions
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: docker-nadekobot-arm64
+          package-type: container
+          delete-only-untagged-versions: 'true'
+          min-versions-to-keep: 1
+          token: ${{ secrets.GITHUB_TOKEN }}
