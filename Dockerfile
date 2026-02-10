@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1
+# syntax=docker/dockerfile:1@sha256:b6afd42430b15f2d2a4c5a02b919e98a525b785b1aaff16747d2f623364e39b6
 
 #################################################################
 # NadekoBot v6 – ARM 64 Docker wrapper                          #
@@ -12,7 +12,7 @@
 ################
 # BUILD  STAGE #
 ################
-FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/sdk:8.0@sha256:58359d0b8fe8237be1d63ac335ca378e2857f976c7f92791f7c84b3c117037f5 AS build
 # renovate: datasource=github-releases depName=nadeko-bot/nadekobot versioning=semver
 ARG NADEKO_VERSION=6.1.21                # tag/branch/commit to build
 WORKDIR /src
@@ -34,7 +34,7 @@ RUN dotnet publish -c Release \
 ##################
 # RUNTIME  STAGE #
 ##################
-FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/runtime-deps:8.0
+FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/runtime-deps:8.0@sha256:d9c7a38d050c9bb90cf5453e8a8217a7eb9df77db3cf8100f4f84d1fb57b5124
 WORKDIR /app
 
 # 3. runtime libraries
