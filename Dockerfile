@@ -14,7 +14,7 @@
 ################
 FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/sdk:8.0 AS build
 # renovate: datasource=github-releases depName=nadeko-bot/nadekobot versioning=semver
-ARG NADEKO_VERSION=6.1.21                # tag/branch/commit to build
+ARG NADEKO_VERSION=6.1.24                # tag/branch/commit to build
 WORKDIR /src
 
 # 1. clone only the requested ref
