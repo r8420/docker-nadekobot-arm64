@@ -32,7 +32,7 @@ jobs:
           echo "NADEKO_VERSION=${ver:-6.1.7}" >> "$GITHUB_OUTPUT"
 
       - name: Build & push ARM64 image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@d08e5c354a6adb9ed34480a06d141179aa583294 # v7
         with:
           context: .
           push: true
