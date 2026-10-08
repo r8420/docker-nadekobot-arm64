@@ -12,7 +12,7 @@
 ################
 # BUILD  STAGE #
 ################
-FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/sdk:11.0@sha256:d0a39ca4acefe992f26030f8fb8c60e1b14ac088822cb3fdfbe536ecf843a675 AS build
 # renovate: datasource=github-releases depName=nadeko-bot/nadekobot versioning=semver
 ARG NADEKO_VERSION=6.1.24                # tag/branch/commit to build
 WORKDIR /src
@@ -34,7 +34,7 @@ RUN dotnet publish -c Release \
 ##################
 # RUNTIME  STAGE #
 ##################
-FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/runtime-deps:8.0
+FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/runtime-deps:11.0@sha256:131d4eb2184f0318f1e85c6eadb499e0b8aa93c6e81b5c7b08852ddf0d6e1771
 WORKDIR /app
 
 # 3. runtime libraries
